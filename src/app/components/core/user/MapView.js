@@ -1,18 +1,9 @@
 import React from 'react';
-import {Avatar, Button, Card, Col, Divider, Form, Input, Popconfirm, Row, Space, Table} from "antd";
-import {DEVICE_DETAIL, GOOGLE_KEY, USER, USER_PASSWORD_CHANGE} from "../../../constants/api";
-import {getAPI, postAPI} from "../../../utils/apiRequest";
-import {UserOutlined} from "@ant-design/icons";
-import {displayMessage, interpolate} from "../../../utils/common";
-import lockr from "lockr";
-import {ERROR_MSG_TYPE, SUCCESS_MSG_TYPE} from "../../../constants/dataKeys";
 
-
-class UserProfile extends React.Component {
+class MapView extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            google_key : GOOGLE_KEY,
             waypoints: [
                 { latitude: 37.7749, longitude: -122.4194 }, // Example values
                 { latitude: 34.0522, longitude: -118.2437 }, // Example values
@@ -24,7 +15,7 @@ class UserProfile extends React.Component {
     componentDidMount() {
         // Load Google Maps API asynchronously
         const script = document.createElement('script');
-        script.src = `https://maps.googleapis.com/maps/api/js?key=`+ this.state.google_key +`&libraries=places&callback=initMap`;
+        script.src = `https://maps.googleapis.com/maps/api/js?key=&libraries=places&callback=initMap`;
         script.async = true;
         script.defer = true;
         document.head.appendChild(script);
@@ -75,9 +66,4 @@ class UserProfile extends React.Component {
     }
 }
 
-export default UserProfile;
-
-
-
-
-
+export default MapView;

@@ -1,5 +1,7 @@
 /*** Base URLs **/
 export const BACKEND_BASE_URL = process.env.REACT_APP_BACKEND_BASE_URL;
+export const GOOGLE_KEY = process.env.REACT_APP_GOOGLE_MAP_KEY;
+console.log(GOOGLE_KEY)
 export const API_URL = BACKEND_BASE_URL + "/api/v1";
 export const IMAGE_BASE_URL = BACKEND_BASE_URL + "/media";
 export const USER = "users/%s/";
@@ -9,6 +11,7 @@ export const USER_REGISTER = "users/register/";
 export const USER_LOGOUT = "users/logout/";
 export const USER_PASSWORD_CHANGE= "users/password_change/";
 export const SUPERADMIN_PASSWORD_RESET= "users/superadmin_password_reset/";
+export const CHATGPT = "users/chatgpt/";
 
 export const DEVICE = "device/";
 export const DEVICE_DETAIL = "device/%s/";

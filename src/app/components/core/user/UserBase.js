@@ -11,6 +11,8 @@ import UserProfile from "./UserProfile";
 import Reports from "./Reports";
 import FormReport from "./FormReport";
 import DeviceTab from "./device/Index";
+import MapView from "./MapView";
+import { useHistory } from 'react-router-dom';
 
 const {Header, Content, Footer} = Layout;
 
@@ -87,6 +89,10 @@ class UserBase extends React.Component {
                             <Route
                                 path={"/"}
                                 render={(route) => <UserHome {...route} />}
+                            />
+                            <Route
+                                path={"/map-view"}
+                                render={(route) => <MapView {...route} />}
                             />
                         </Switch>
                     </div>
