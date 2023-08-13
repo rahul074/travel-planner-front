@@ -22,6 +22,7 @@ class UserProfile extends React.Component {
     }
 
     componentDidMount() {
+        this.processSelectedLocations();
         // Load Google Maps API asynchronously
         const script = document.createElement('script');
         script.src = `https://maps.googleapis.com/maps/api/js?key=`+ this.state.google_key +`&libraries=places&callback=initMap`;
@@ -30,7 +31,15 @@ class UserProfile extends React.Component {
         document.head.appendChild(script);
         window.initMap = this.initMap;
     }
-
+    processSelectedLocations() {
+        const selectedLocations = lockr.get('selectedLocations') || [];
+        console.log(selectedLocations)
+        const waypoints = selectedLocations.map(location => ({
+            latitude: location.latitude,
+            longitude: location.longitude,
+        }));
+        this.setState({ waypoints });
+    }
     initMap = () => {
         const { waypoints } = this.state;
 

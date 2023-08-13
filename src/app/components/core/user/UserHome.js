@@ -1,5 +1,5 @@
 import React from 'react'
-import {Button, Card, Col, Form, Image, Input, Row, Table, Tag} from "antd";
+import {Button, Card, Checkbox, Col, Form, Image, Input, Modal, Row, Table, Tag} from "antd";
 import {getAPI, postAPI, putAPI} from "../../../utils/apiRequest";
 import {OVERVIEW_DATA, LOCATION_USER_LIST, DEVICE_DETAIL, DEVICE, CHATGPT} from "../../../constants/api";
 import InfiniteFeedLoaderButton from "../../../common/InfiniteFeedLoaderButton";
@@ -13,6 +13,7 @@ class UserHome extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            selectedOptions: []
         }
     }
     componentDidMount() {
@@ -29,10 +30,13 @@ class UserHome extends React.Component {
         }
         let successFn = function (result) {
             console.log("sjdfsjdhfkjsdhf---------------")
-            that.props.history.push("/profile");
-            console.log("sjdfsjdhfkjsdhf---------------")
-            that.onSubmitSuccessMSG()
-            that.props.onSelectTab('/')
+            that.setState({
+                showModal: true,
+                modalData: result // Set the response data here
+            });
+            console.log("sjdfsjdhfkjsdhf-----wer----------")
+            // that.onSubmitSuccessMSG()
+            // that.props.onSelectTab('/')
             that.setState({
                 loading: false
             })
@@ -49,7 +53,27 @@ class UserHome extends React.Component {
         postAPI(CHATGPT, reqData, successFn, errorFn)
         // postWithOutTokenAPI(DEVICE, reqData, successFn, errorFn);
     }
+    handleModalOk = () => {
+        const { selectedOptions } = this.state;
+        lockr.set('selectedLocations', selectedOptions);
+        this.setState({
+            showModal: false,
+            modalData: null
+        });
+        this.props.history.push("/profile"); // Assuming your route is named "map-view"
+    }
+    handleCheckboxChange = (event) => {
+        const { value, checked } = event.target;
+        const [latitude, longitude] = value.split('-');
 
+        this.setState(prevState => {
+            if (checked) {
+                return { selectedOptions: [...prevState.selectedOptions, { latitude, longitude }] };
+            } else {
+                return { selectedOptions: prevState.selectedOptions.filter(option => option.latitude !== latitude || option.longitude !== longitude) };
+            }
+        });
+    }
     render() {
         // Rest of the render method...
         return (
@@ -95,6 +119,24 @@ class UserHome extends React.Component {
                 </Form>
                 <br />
                 <br />
+                <Modal
+                    title="Select Locations"
+                    visible={this.state.showModal}
+                    onOk={this.handleModalOk}
+                    onCancel={() => this.setState({ showModal: false })}
+                >
+                    {this.state.modalData && this.state.modalData.map((item, index) => (
+                        <div key={index}>
+                            <Checkbox
+                                value={`${item.latitude}-${item.longitude}`}
+                                checked={this.state.selectedOptions.some(option => option.latitude === item.latitude && option.longitude === item.longitude)}
+                                onChange={this.handleCheckboxChange}
+                            >
+                                {item.name}
+                            </Checkbox>
+                        </div>
+                    ))}
+                </Modal>
             </div>
         );
     }
