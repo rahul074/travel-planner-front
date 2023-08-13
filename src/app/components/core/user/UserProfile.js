@@ -45,22 +45,28 @@ class UserProfile extends React.Component {
 
         // Create a map instance
         const map = new window.google.maps.Map(document.getElementById('map'), {
-            center: { lat: waypoints[0].latitude, lng: waypoints[0].longitude }, // Center the map at the first waypoint
-            zoom: 8, // Default zoom level
+            center: { lat: waypoints[0].latitude, lng: waypoints[0].longitude },
+            zoom: 8,
         });
 
-        // Display directions between waypoints
+        // Display directions between all waypoints
         if (waypoints.length >= 2) {
             const directionsService = new window.google.maps.DirectionsService();
             const directionsRenderer = new window.google.maps.DirectionsRenderer();
             directionsRenderer.setMap(map);
 
             const origin = new window.google.maps.LatLng(waypoints[0].latitude, waypoints[0].longitude);
-            const destination = new window.google.maps.LatLng(waypoints[1].latitude, waypoints[1].longitude);
+            const destination = new window.google.maps.LatLng(waypoints[waypoints.length - 1].latitude, waypoints[waypoints.length - 1].longitude);
+
+            const waypointsForDirections = waypoints.slice(1, waypoints.length - 1).map(waypoint => ({
+                location: new window.google.maps.LatLng(waypoint.latitude, waypoint.longitude),
+                stopover: true
+            }));
 
             const request = {
                 origin,
                 destination,
+                waypoints: waypointsForDirections,
                 travelMode: window.google.maps.TravelMode.DRIVING,
             };
 
