@@ -29,12 +29,9 @@ class AppSider extends React.Component {
                         <Link to={'/admin/password-reset'}>Reset Password</Link>
                     </Menu.Item>
                 </SubMenu>
-                <Menu.Item key={'/admin/location'} icon={<WindowsOutlined/>}>
-                    <Link to={'/admin/location'}>Locations</Link>
-                </Menu.Item>
-                <Menu.Item key={'/admin/device'} icon={<UploadOutlined/>}>
-                    <Link to={'/admin/device'}>Devices</Link>
-                </Menu.Item>
+                {/*<Menu.Item key={'/admin/device'} icon={<UploadOutlined/>}>*/}
+                {/*    <Link to={'/admin/device'}>Devices</Link>*/}
+                {/*</Menu.Item>*/}
 
             </Menu>
         </Sider>);

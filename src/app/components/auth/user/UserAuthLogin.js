@@ -46,7 +46,6 @@ class UserAuthLogin extends React.Component {
                     loading: false
                 })
                 that.props.history.push("/");
-
             }
         }
         let errorFn = function (error) {

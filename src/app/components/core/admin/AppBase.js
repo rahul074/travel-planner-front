@@ -3,20 +3,16 @@ import {Layout, Menu} from 'antd';
 
 import AppSider from "./AppSider";
 import AppHeader from "./AppHeader";
-import AddOrEditLocation from "./location/AddOrEditLocation";
 import FormDevice from "./device/AddOrEditDevice";
 import {Route, Switch} from "react-router-dom";
 import FormUser from "./userManagment/FormUser";
 import EditUser from "./userManagment/EditUser";
 import PasswordReset from "./userManagment/PasswordReset";
 import ViewUsers from "./userManagment/ViewUsers";
-import ViewLocation from "./location/Index";
 import ViewDevice from "./device/Index";
 import ChangePassword from "./ChangePassword";
-import Location from "./location/Index";
 import Device from "./device/Index";
 import Users from "./userManagment/Index";
-import UserDevices from "../user/UserDevices";
 import lockr from "lockr";
 import AdminProfile from "./AdminProfile";
 
@@ -72,18 +68,6 @@ class AppBase extends React.Component {
                     <Route
                         path={"/admin/view-users"}
                         render={(route) => <ViewUsers {...route} />}
-                    />
-                    <Route
-                        path={"/admin/location"}
-                        render={(route) => <Location {...route} />}
-                    />
-                    <Route
-                        path={"/admin/add-location"}
-                        render={(route) => <AddOrEditLocation {...route} />}
-                    />
-                    <Route
-                        path={"/admin/view-location"}
-                        render={(route) => <ViewLocation {...route} />}
                     />
                     <Route
                         path={"/admin/device"}

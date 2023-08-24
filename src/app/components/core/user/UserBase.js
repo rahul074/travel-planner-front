@@ -5,14 +5,9 @@ import UserHeader from "./UserHeader";
 import {Route, Switch} from "react-router-dom";
 import {Layout, Menu, Breadcrumb} from 'antd';
 import UserHome from "./UserHome";
-import UserDevices from "./UserDevices";
 import lockr from 'lockr';
 import UserProfile from "./UserProfile";
-import Reports from "./Reports";
-import FormReport from "./FormReport";
-import DeviceTab from "./device/Index";
 import MapView from "./MapView";
-import { useHistory } from 'react-router-dom';
 
 const {Header, Content, Footer} = Layout;
 
@@ -25,13 +20,13 @@ class UserBase extends React.Component {
     componentDidMount() {
         let token = lockr.get('token')
         let is_superuser = lockr.get('is_superuser')
-        //
-        // if(token && is_superuser){
-        //     this.props.history.push('/admin/users')
-        // }
-        // else if(!token){
-        //     this.props.history.push('/auth/user/login')
-        // }
+
+        if(token && is_superuser){
+            this.props.history.push('/admin/users')
+        }
+        else if(!token){
+            this.props.history.push('/auth/user/login')
+        }
     }
     toggle = () => {
         this.setState({
@@ -69,22 +64,6 @@ class UserBase extends React.Component {
                             <Route
                                 path={"/profile"}
                                 render={(route) => <UserProfile {...route} />}
-                            />
-                            <Route
-                                path={"/devices/:deviceId/:locationName"}
-                                render={(route) => <UserDevices {...route} />}
-                            />
-                            <Route
-                                path={"/device-overview/:deviceId/:deviceName"}
-                                render={(route) => <DeviceTab {...route} />}
-                            />
-                            <Route
-                                path={"/report-form"}
-                                render={(route) => <FormReport {...route} />}
-                            />
-                            <Route
-                                path={"/report"}
-                                render={(route) => <Reports {...route} />}
                             />
                             <Route
                                 path={"/"}
