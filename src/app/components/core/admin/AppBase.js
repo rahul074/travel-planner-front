@@ -3,13 +3,13 @@ import {Layout, Menu} from 'antd';
 
 import AppSider from "./AppSider";
 import AppHeader from "./AppHeader";
-import FormDevice from "./device/AddOrEditDevice";
+import FormDevice from "./device/AddOrEditSearches";
 import {Route, Switch} from "react-router-dom";
 import FormUser from "./userManagment/FormUser";
 import EditUser from "./userManagment/EditUser";
 import PasswordReset from "./userManagment/PasswordReset";
 import ViewUsers from "./userManagment/ViewUsers";
-import ViewDevice from "./device/Index";
+import ViewSearches from "./device/Index";
 import ChangePassword from "./ChangePassword";
 import Device from "./device/Index";
 import Users from "./userManagment/Index";
@@ -70,24 +70,12 @@ class AppBase extends React.Component {
                         render={(route) => <ViewUsers {...route} />}
                     />
                     <Route
-                        path={"/admin/device"}
+                        path={"/admin/searches"}
                         render={(route) => <Device {...route} />}
                     />
                     <Route
-                        path={"/admin/add-device"}
+                        path={"/admin/add-searches"}
                         render={(route) => <FormDevice {...route} />}
-                    />
-                    <Route
-                        path={"/admin/device"}
-                        render={(route) => <Device {...route} />}
-                    />
-                    <Route
-                        path={"/admin/add-device"}
-                        render={(route) => <FormDevice {...route} />}
-                    />
-                    <Route
-                        path={"/admin/view-device"}
-                        render={(route) => <ViewDevice {...route} />}
                     />
                     <Route
                         path={"/admin/change-password"}

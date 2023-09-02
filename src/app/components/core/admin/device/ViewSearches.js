@@ -2,13 +2,14 @@ import React from 'react';
 import {Card, Divider, Popconfirm, Space, Table} from "antd";
 import moment from "moment";
 import {getAPI, putAPI} from "../../../../utils/apiRequest";
-import {DEVICE, DEVICE_DETAIL, LOCATION_DETAIL} from "../../../../constants/api";
+import {SEARCHES, DEVICE_DETAIL, LOCATION_DETAIL} from "../../../../constants/api";
 import {_get} from "../../../../utils/lodashUtils";
 import {displayMessage, interpolate} from "../../../../utils/common";
 import {SUCCESS_MSG_TYPE} from "../../../../constants/dataKeys";
 import InfiniteFeedLoaderButton from "../../../../common/InfiniteFeedLoaderButton";
+import {userNameAndCode} from "../../../../common/commonFunctions";
 
-class ViewDevice extends React.Component {
+class ViewSearches extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -17,9 +18,9 @@ class ViewDevice extends React.Component {
         }
     }
     componentDidMount() {
-        this.loadDevices();
+        this.loadSearchHistory();
     }
-    loadDevices(page = 1) {
+    loadSearchHistory(page = 1) {
         let that = this;
         this.setState({
             loading: true
@@ -53,7 +54,7 @@ class ViewDevice extends React.Component {
             page,
             action_taken: true,
               }
-        getAPI(DEVICE, successFn, errorFn, {...params})
+        getAPI(SEARCHES, successFn, errorFn, {...params})
     }
     editObject = (record) => {
         this.props.onSelectTab('add-device', record)
@@ -68,7 +69,7 @@ class ViewDevice extends React.Component {
         let successFn = function (result) {
             displayMessage(SUCCESS_MSG_TYPE, "Device deleted Successfully!")
             that.setState({loading:false})
-            that.loadDevices();
+            that.loadSearchHistory();
         }
         let errorFn = function (error) {
             that.setState({loading:false})
@@ -84,44 +85,44 @@ class ViewDevice extends React.Component {
                 key: "s_no",
                 render: (item, record, index) => deviceData.indexOf(record) + 1
             },{
-                title: "Device Name",
-                key: "device_name",
+                title: "User Name",
+                key: "user_name",
                 dataIndex: 'device_name',
-                render: (item, record) =>  record.device_name
+                render: (item, record) =>  <span>{userNameAndCode(_get(record, 'user_data'))}</span>
             },{
-                title: "IMEI",
-                key: "imei",
-                dataIndex: 'imei',
-                render: (item, record) =>  record.imei
+                title: "Origin",
+                key: "origin",
+                dataIndex: 'origin',
+                render: (item, record) =>  record.origin
             },{
-                title: "Location",
-                key: "location",
-                dataIndex: 'location',
-                render: (item, record) =>  <span>{_get(record, 'location') ?
-                    _get(record, 'location_data.name') : "--"}</span>
-            }, {
-                title: 'Action',
-                key: 'action',
-                render: (text, record) => (
-                    <span>
-                        <a onClick={() => this.editObject(record)}> Edit</a>
-                        <Divider type="vertical"/>
-                        <Popconfirm
-                            title="Are you sure to delete this?"
-                            onConfirm={() => this.deleteObject(record)}
-                            okText="Yes"
-                            cancelText="No"
-                        >
-                            <a>Delete</a>
-                        </Popconfirm>
-                    </span>
-                ),
+                title: "Destination",
+                key: "destination",
+                dataIndex: 'destination',
+                render: (item, record) =>  record.destination
             }
+            // , {
+            //     title: 'Action',
+            //     key: 'action',
+            //     render: (text, record) => (
+            //         <span>
+            //             <a onClick={() => this.editObject(record)}> Edit</a>
+            //             <Divider type="vertical"/>
+            //             <Popconfirm
+            //                 title="Are you sure to delete this?"
+            //                 onConfirm={() => this.deleteObject(record)}
+            //                 okText="Yes"
+            //                 cancelText="No"
+            //             >
+            //                 <a>Delete</a>
+            //             </Popconfirm>
+            //         </span>
+            //     ),
+            // }
             ];
         return (<div>
                         <Table loading={loading} columns={columns} dataSource={deviceData} pagination={false}/>
                         <InfiniteFeedLoaderButton
-                            loaderFunction={() => this.loadDevices(this.state.nextPage)}
+                            loaderFunction={() => this.loadSearchHistory(this.state.nextPage)}
                             hidden={!this.state.nextPage}
                         />
             </div>
@@ -130,4 +131,4 @@ class ViewDevice extends React.Component {
     }
 }
 
-export default ViewDevice;
+export default ViewSearches;

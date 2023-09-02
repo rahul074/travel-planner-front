@@ -3,13 +3,13 @@ import {Form, Input, Button, Select, Layout, Card, Spin} from 'antd';
 import {displayMessage, interpolate} from "../../../../utils/common";
 import {ERROR_MSG_TYPE, SUCCESS_MSG_TYPE} from "../../../../constants/dataKeys";
 import {getAPI, postAPI, postWithOutTokenAPI, putAPI} from "../../../../utils/apiRequest";
-import {DEVICE, DEVICE_DETAIL, LOCATION, LOCATION_DETAIL, LOCATION_LIST} from "../../../../constants/api";
+import {SEARCHES, DEVICE_DETAIL, LOCATION, LOCATION_DETAIL, LOCATION_LIST} from "../../../../constants/api";
 import {locationDropDownListViewConverter} from "../../../../utils/locationUtils";
 import {_get} from "../../../../utils/lodashUtils";
 
 const {Content} = Layout;
 
-class AddOrEditLocation extends React.Component {
+class AddOrEditSearches extends React.Component {
     formRef = React.createRef();
 
     constructor(props) {
@@ -75,9 +75,9 @@ class AddOrEditLocation extends React.Component {
             // postAPI(LOCATION, reqData, successFn, errorFn)
             putAPI(interpolate(DEVICE_DETAIL, [editData.id]), reqData, successFn, errorFn)
         } else {
-            postAPI(DEVICE, reqData, successFn, errorFn)
+            postAPI(SEARCHES, reqData, successFn, errorFn)
         }
-        // postWithOutTokenAPI(DEVICE, reqData, successFn, errorFn);
+        // postWithOutTokenAPI(SEARCHES, reqData, successFn, errorFn);
     }
     onSubmitSuccessMSG = () => {
         const {editData} = this.props;
@@ -157,4 +157,4 @@ class AddOrEditLocation extends React.Component {
     }
 }
 
-export default AddOrEditLocation;
+export default AddOrEditSearches;

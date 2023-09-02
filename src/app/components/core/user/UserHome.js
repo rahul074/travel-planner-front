@@ -1,7 +1,7 @@
 import React from 'react'
 import {Button, Card, Checkbox, Col, Form, Image, Input, Modal, Row, Table, Tag} from "antd";
 import {getAPI, postAPI, putAPI} from "../../../utils/apiRequest";
-import {OVERVIEW_DATA, LOCATION_USER_LIST, DEVICE_DETAIL, DEVICE, CHATGPT} from "../../../constants/api";
+import {OVERVIEW_DATA, LOCATION_USER_LIST, DEVICE_DETAIL, SEARCHES, CHATGPT} from "../../../constants/api";
 import InfiniteFeedLoaderButton from "../../../common/InfiniteFeedLoaderButton";
 import {displayMessage, interpolate} from "../../../utils/common";
 import {ERROR_MSG_TYPE} from "../../../constants/dataKeys";
@@ -51,7 +51,7 @@ class UserHome extends React.Component {
             );
         }
         postAPI(CHATGPT, reqData, successFn, errorFn)
-        // postWithOutTokenAPI(DEVICE, reqData, successFn, errorFn);
+        // postWithOutTokenAPI(SEARCHES, reqData, successFn, errorFn);
     }
     handleModalOk = () => {
         const { selectedOptions } = this.state;

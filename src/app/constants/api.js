@@ -13,7 +13,7 @@ export const USER_PASSWORD_CHANGE= "users/password_change/";
 export const SUPERADMIN_PASSWORD_RESET= "users/superadmin_password_reset/";
 export const CHATGPT = "users/chatgpt/";
 
-export const DEVICE = "device/";
+export const SEARCHES = "users/user_searches/";
 export const DEVICE_DETAIL = "device/%s/";
 export const LOCATION_DEVICE = "device/location_devices/";
 export const LOCATION = "location/";

@@ -1,16 +1,16 @@
 import React, {Component} from 'react';
 import {Card, Tabs} from 'antd'
-import ViewDevice from "./ViewDevice";
+import ViewSearches from "./ViewSearches";
 import {Content} from "antd/es/layout/layout";
-import AddOrEditDevice from "./AddOrEditDevice";
+import AddOrEditDevice from "./AddOrEditSearches";
 
 const {TabPane} = Tabs;
 
-class Device extends Component {
+class Searches extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            selectedTab: 'add-device',
+            selectedTab: 'view-searches',
             editData: null
         }
     }
@@ -31,19 +31,19 @@ class Device extends Component {
                     height: `calc(100vh - 65px)`,
                     overflow:'auto'
                 }}>
-                <h3>My Devices</h3>
+                <h3>User Searches</h3>
                 <Card>
                     <Tabs onChange={this.onSelectTab} activeKey={this.state.selectedTab}>
-                        <TabPane tab="Add Device" key="add-device">
-                            {this.state.selectedTab === 'add-device' ?
-                                <AddOrEditDevice key={'add-device'}
-                                            editData={this.state.editData}
-                                            onSelectTab={this.onSelectTab} {...this.props}/>
-                                : null}
-                        </TabPane>
-                        <TabPane tab="View Devices" key="view-device">
-                            {this.state.selectedTab === 'view-device' ?
-                                <ViewDevice onSelectTab={this.onSelectTab} {...this.props}/>
+                        {/*<TabPane tab="Add Searches" key="add-searches">*/}
+                        {/*    {this.state.selectedTab === 'add-searches' ?*/}
+                        {/*        <AddOrEditDevice key={'add-searches'}*/}
+                        {/*                    editData={this.state.editData}*/}
+                        {/*                    onSelectTab={this.onSelectTab} {...this.props}/>*/}
+                        {/*        : null}*/}
+                        {/*</TabPane>*/}
+                        <TabPane tab="View Searches" key="view-searches">
+                            {this.state.selectedTab === 'view-searches' ?
+                                <ViewSearches onSelectTab={this.onSelectTab} {...this.props}/>
                                 : null}
                         </TabPane>
                     </Tabs>
@@ -53,4 +53,4 @@ class Device extends Component {
     }
 }
 
-export default Device;
+export default Searches;
