@@ -8,6 +8,8 @@ import {ERROR_MSG_TYPE} from "../../../constants/dataKeys";
 import lockr from "lockr";
 import {_debounce,} from "../../../utils/lodashUtils";
 import moment from "moment";
+import { Switch } from 'antd';
+
 
 class UserHome extends React.Component {
     constructor(props) {
@@ -55,7 +57,10 @@ class UserHome extends React.Component {
         // postWithOutTokenAPI(SEARCHES, reqData, successFn, errorFn);
     }
     handleModalOk = () => {
+        console.log("000000000000000000")
+        
         const { selectedOptions } = this.state;
+        console.log(selectedOptions)
         lockr.set('selectedLocations', selectedOptions);
         this.setState({
             showModal: false,
@@ -75,6 +80,26 @@ class UserHome extends React.Component {
             }
         });
     }
+    handleSwitchChange = (latitude, longitude, checked) => {
+        this.setState((prevState) => {
+            const { selectedOptions } = prevState;
+    
+            if (checked) {
+                // Add the selected option to the array
+                return {
+                    selectedOptions: [...selectedOptions, { latitude, longitude }],
+                };
+            } else {
+                // Remove the selected option from the array
+                return {
+                    selectedOptions: selectedOptions.filter((option) => option.latitude !== latitude || option.longitude !== longitude),
+                };
+            }
+        });
+    };
+    isOptionSelected = (latitude, longitude) => {
+        return this.state.selectedOptions.some((option) => option.latitude === latitude && option.longitude === longitude);
+    };
     render() {
         // Rest of the render method...
         return (
@@ -128,15 +153,13 @@ class UserHome extends React.Component {
                     onCancel={() => this.setState({ showModal: false })}
                 >
                     {this.state.modalData && this.state.modalData.map((item, index) => (
-                        <div key={index}>
-                            <Checkbox
-                                value={`${item.latitude}-${item.longitude}`}
-                                checked={this.state.selectedOptions.some(option => option.latitude === item.latitude && option.longitude === item.longitude)}
-                                onChange={this.handleCheckboxChange}
-                            >
-                                {item.name}
-                            </Checkbox>
-                        </div>
+                       <div key={index}>
+                       <Switch
+                           checked={this.isOptionSelected(item.latitude, item.longitude)}
+                           onChange={(checked) => this.handleSwitchChange(item.latitude, item.longitude, checked)}
+                       />
+                       {item.name}
+                   </div>
                     ))}
                 </Modal>
             </div>
