@@ -22,6 +22,7 @@ class UserHome extends React.Component {
     }
 
     onFinish = (values) => {
+        this.setState({ loading: true });
         console.log("sjdfsjdhfkjsdhf")
         let that = this;
         that.setState({loading: true})
@@ -112,6 +113,7 @@ class UserHome extends React.Component {
                             type="primary"
                             className={'theme-color'}
                             htmlType="submit"
+                            loading={this.state.loading}
                         >
                             Find Best Places
                         </Button>
